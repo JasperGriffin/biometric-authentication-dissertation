@@ -1,0 +1,29 @@
+<mat-card>
+    <p>
+        <mat-form-field appearance="legacy">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="User#0000">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>This will the ID given to you</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="legacy">
+        <mat-label>Sentence</mat-label>
+        <input matInput placeholder="The quick fox jumped over the lazy dog.">
+        <mat-icon matSuffix>keyboard</mat-icon>
+        <mat-hint>This will record your keyboard patterns</mat-hint>
+        </mat-form-field>
+    </p>
+
+    <section class="checkbox-section">
+        <mat-checkbox class="checkbox-margin" [(ngModel)]="checked" color="primary">I confirm I have read the infomration sheet and agreed to the consent form.</mat-checkbox>
+    </section>
+
+    <section>
+        <div class="button-row">
+        <button mat-raised-button color="primary" (click)="verifyCheckbox()">Login</button>
+        </div>
+    </section>
+</mat-card>
+

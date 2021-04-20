@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .checkbox-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .checkbox-margin {
+    margin: 0 10px;
+  }
+
+  .button-row {
+    display: table-cell;
+    width: 490px;
+    margin: 8px 8px 8px 0;
+  }
