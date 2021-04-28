@@ -4,7 +4,6 @@
     align-items: flex-start;
   }
 
-
   .checkbox-section {
     display: flex;
     align-content: center;
@@ -14,10 +13,50 @@
   
   .checkbox-margin {
     margin: 0 10px;
+    font-size: 1vw;
+    padding: 20px 0 20px 0;
   }
 
   .button-row {
     display: table-cell;
-    width: 490px;
+    width: 750px;
     margin: 8px 8px 8px 0;
+    padding-top: 30px;
+  }
+
+  .login-btn {
+    position:relative;
+    float: right;
+    width: 80px;
+  }
+
+  .acc-btn {
+    position:relative; 
+    float: left;
+  }
+
+  .card-container {
+    width: 40vw;
+    height: 450px; 
+    margin: auto; 
+  }
+
+  .mat-form-field {
+    width: 100%;
+    padding: 10px 0 10px 0;
+  }
+
+  .box-container {
+    margin-top: 100px;
+    padding: 20px;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  .logo-container {
+    width: 10%;
+    overflow:hidden;
+    margin: auto;  
   }

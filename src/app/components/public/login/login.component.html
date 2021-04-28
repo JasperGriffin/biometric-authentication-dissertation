@@ -1,29 +1,49 @@
-<mat-card>
-    <p>
-        <mat-form-field appearance="legacy">
-        <mat-label>Username</mat-label>
-        <input matInput placeholder="User#0000">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>This will the ID given to you</mat-hint>
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field appearance="legacy">
-        <mat-label>Sentence</mat-label>
-        <input matInput placeholder="The quick fox jumped over the lazy dog.">
-        <mat-icon matSuffix>keyboard</mat-icon>
-        <mat-hint>This will record your keyboard patterns</mat-hint>
-        </mat-form-field>
-    </p>
+<mat-card class="card-container">
 
-    <section class="checkbox-section">
-        <mat-checkbox class="checkbox-margin" [(ngModel)]="checked" color="primary">I confirm I have read the infomration sheet and agreed to the consent form.</mat-checkbox>
-    </section>
+    <div class="box-container">
 
-    <section>
-        <div class="button-row">
-        <button mat-raised-button color="primary" (click)="verifyCheckbox()">Login</button>
+        <div class="logo-container">
+            <img src="/assets/img/logo.png" alt="company-logo" class="logo">
         </div>
-    </section>
+
+        <p>
+            <mat-form-field appearance="legacy" [formGroup]="userForm">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="User#0000" formControlName="username" required >
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <!--<mat-hint>This will be the ID given to you</mat-hint>-->
+            <mat-error *ngIf="userForm.get('username')?.hasError('required')">Username is required</mat-error>
+            <mat-error *ngIf="userForm.get('username')?.errors?.pattern">Must be a valid user</mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="legacy" [formGroup]="userForm">
+            <mat-label>The quick fox jumped over the lazy dog</mat-label>
+            <input matInput placeholder="Sentence" formControlName="sentence" required>
+            <mat-icon matSuffix>keyboard</mat-icon>
+            <mat-hint>This will record your keyboard patterns</mat-hint>
+
+            <mat-error *ngIf="userForm.get('sentence')?.hasError('required')">This field is required</mat-error>
+            <mat-error *ngIf="userForm.get('sentence')?.errors?.pattern">Sentence does not match above</mat-error>
+          
+            </mat-form-field>
+        </p>
+    
+
+        <section class="checkbox-section">
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="checked" color="primary">I confirm I have read the infomration sheet and agreed to the consent form.</mat-checkbox>
+            <mat-error *ngIf="">You must sign T&C</mat-error>
+        </section>
+
+        
+        <section>
+            <div class="button-row">
+                <!--Disabled if formgroup is invalid-->
+                <button mat-button color="primary" class="acc-btn">Create Account</button>  
+                <button mat-raised-button color="primary" (click)="onSubmit()" class="login-btn">Login</button>
+            </div>
+        </section>
+    </div>
+
 </mat-card>
 
