@@ -31,11 +31,12 @@
     
 
         <section class="checkbox-section">
-            <mat-checkbox class="checkbox-margin" [(ngModel)]="checked" color="primary">I confirm I have read the infomration sheet and agreed to the consent form.</mat-checkbox>
-            <mat-error *ngIf="">You must sign T&C</mat-error>
+            <mat-checkbox class="checkbox-margin" [(ngModel)]="checked" color="primary">I have read the information sheet and agreed to the consent form.</mat-checkbox>
         </section>
+        <div [formGroup]="userForm" formControlName="accept">
+            <mat-error  *ngIf="userForm.get('accept')?.invalid && userForm.get('accept')?.dirty" class="checkbox-error">You must agree to terms and services</mat-error>
+        </div>
 
-        
         <section>
             <div class="button-row">
                 <!--Disabled if formgroup is invalid-->

@@ -18,20 +18,11 @@ export class LoginComponent {
     sentence : new FormControl('', Validators.compose([
       Validators.required,
       Validators.pattern('The quick fox jumped over the lazy dog')])),
-    //accept : new FormControl(true, Validators.requiredTrue) 
-    //accept : new FormControl('', [Validators.required])
-    //accept : new FormControl('', Validators.compose([
-      //Validators.required
-    //]))
+    accept : new FormControl('', [(control) => {    
+      return !control.value ? { 'required': true } : null;
+    }]
+    )
   });
-
-  accept = new FormControl('', [
-    Validators.required,
-  ]);
-
-  get f(){
-    return this.userForm.controls;
-}
 
   onSubmit() {
 
@@ -42,7 +33,7 @@ export class LoginComponent {
       this.userForm.get('sentence')?.markAllAsTouched(); 
     }
     else if (!this.checked) {
-       this.accept.markAsTouched();
+       this.userForm.get('accept')?.markAsDirty(); 
     }
     else {
       alert("Well done"); 
