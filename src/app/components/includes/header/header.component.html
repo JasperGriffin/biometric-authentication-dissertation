@@ -1,1 +1,24 @@
-<h1>header works!</h1>
+
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+
+        <div class="navbar-container">
+            
+            <a mat-button [routerLink]="'/home'" class="">
+                <span class="mat-button-wrapper">
+                    <img src="/assets/img/logo-purple-background.png" alt="Logo" class="background-logo">
+                    <span class="logo-name">Jasper Griffin</span>
+                </span>
+            </a>
+            <a mat-button [routerLink]="'/about'">About</a>
+            <a mat-button [routerLink]="'/projects'">Projects</a>
+            
+            <span class="login-wrapper">
+                <a mat-raised-button color="accent" [routerLink]="'/login'" class="login-btn">Login</a>
+            </span>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+

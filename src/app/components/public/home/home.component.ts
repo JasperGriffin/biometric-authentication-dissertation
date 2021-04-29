@@ -9,6 +9,7 @@ export class HomeComponent implements OnInit {
 
   title = 'biometric-authentication-dissertation';
   name = 'Jasper';
+  
 
   constructor() { }
 
