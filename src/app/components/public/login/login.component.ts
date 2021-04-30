@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   
   checked = false;
+
   /*Constructor to store the user id, name and message of user*/
+
+  constructor (
+    private router: Router
+  ) {}
 
   userForm = new FormGroup({
     username : new FormControl('', Validators.compose([
@@ -23,7 +29,7 @@ export class LoginComponent {
     }]
     )
   });
-
+  
   onSubmit() {
 
     if (this.userForm.get('username')?.invalid) {
@@ -38,9 +44,11 @@ export class LoginComponent {
     else {
       alert("Well done"); 
     }
+  }
 
-    
-
+  createAcc() {
+    const register: string[] = ['/register'];
+    this.router.navigate(register);
   }
 
 
