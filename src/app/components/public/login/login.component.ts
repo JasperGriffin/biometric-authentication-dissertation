@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   
-  checked = false;
-
   /*Constructor to store the user id, name and message of user*/
 
   constructor (
@@ -38,11 +36,9 @@ export class LoginComponent {
     else if (this.userForm.get('sentence')?.invalid) {
       this.userForm.get('sentence')?.markAllAsTouched(); 
     }
-    else if (!this.checked) {
-       this.userForm.get('accept')?.markAsDirty(); 
-    }
     else {
-      alert("Well done"); 
+      const loggedIn: string[] = ['/home'];
+      this.router.navigate(loggedIn);
     }
   }
 

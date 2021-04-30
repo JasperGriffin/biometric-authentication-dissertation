@@ -4,28 +4,6 @@
     align-items: flex-start;
   }
 
-  .checkbox-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
-  .checkbox-margin {
-    /*margin: 0 10px;*/
-    font-size: 1vw;
-    padding: 0px 0 20px 0;
-  }
-
-  .checkbox-error { 
-  
-    display: flex;
-    align-content: center;
-    align-items: center;
-
-    position: absolute;
-  }
-
   .button-row {
     display: table-cell;
     width: 750px;
@@ -57,7 +35,7 @@
   }
 
   .box-container {
-    margin-top: 100px;
+    /*margin-top: 100px;*/
     padding: 20px;
   }
 
@@ -69,4 +47,11 @@
     width: 10%;
     overflow:hidden;
     margin: auto;  
+  }
+
+  .page-title {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    color: #673AB7;
   }
