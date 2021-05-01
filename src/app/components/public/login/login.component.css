@@ -35,7 +35,6 @@
   }
 
   .box-container {
-    /*margin-top: 100px;*/
     padding: 20px;
   }
 
@@ -54,4 +53,16 @@
     width: 100%;
     text-align: center;
     color: #673AB7;
+  }
+
+  .register-card {
+    width: 40vw;
+    margin-top: 20px;
+    position: absolute;
+  }
+
+  .register-card-wrapper {
+    display: flex; 
+    justify-content: center;
+    margin: auto;
   }

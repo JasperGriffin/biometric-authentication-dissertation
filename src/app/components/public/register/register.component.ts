@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 export interface Task {
@@ -19,16 +19,13 @@ export interface Task {
 export class RegisterComponent implements OnInit {
 
   allComplete: boolean = false;
-  errorMessage = ''; 
+  errorMessage: string = ''; 
 
   constructor(
-    private router: Router
+    private router: Router,
   ) { }
 
-  ngOnInit(): void {
-
-    //https://stackoverflow.com/questions/54043977/angular-redirect-to-login-after-register-and-show-a-message
-  }
+  ngOnInit(): void {}
 
   task: Task = {
     name: 'I have read the information sheet and agreed to the consent form',
@@ -87,7 +84,7 @@ export class RegisterComponent implements OnInit {
     }
     else {
       
-      this.router.navigate(['/', 'login'])
+      this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
           console.log(nav); // true if navigation is successful
         }, err => {
