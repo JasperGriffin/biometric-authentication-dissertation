@@ -21,8 +21,8 @@
         </p>
         <p>
             <mat-form-field appearance="legacy" [formGroup]="userForm">
-            <mat-label>The quick fox jumped over the lazy dog</mat-label>
-            <input matInput placeholder="Sentence" formControlName="sentence" required>
+            <mat-label>test</mat-label>
+            <input matInput placeholder="Sentence" formControlName="sentence" type="text" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" required><!--required-->
             <mat-icon matSuffix>keyboard</mat-icon>
             <mat-hint>This will record your keyboard patterns</mat-hint>
 

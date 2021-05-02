@@ -21,9 +21,11 @@ export class RegisterComponent implements OnInit {
   allComplete: boolean = false;
   errorMessage: string = ''; 
 
+  value = ''; 
+
   constructor(
     private router: Router,
-  ) { }
+  ) {}
 
   ngOnInit(): void {}
 
@@ -42,7 +44,9 @@ export class RegisterComponent implements OnInit {
   userForm = new FormGroup({
     username : new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern('User#[0-9]{4}')])),
+      //Validators.pattern('User#[0-9]{4}')])),
+      Validators.pattern('test')])),
+
     sentence : new FormControl('', Validators.compose([
       Validators.required,
       Validators.pattern('The quick fox jumped over the lazy dog')])),
@@ -71,6 +75,33 @@ export class RegisterComponent implements OnInit {
     this.task.subtasks.forEach(t => t.completed = completed);
   }
 
+  onKeyUp(event: any) {
+
+    var temp = ''
+
+    //make this a separate method
+    //if size is bigger than one, for loop and split into array and read last value
+
+    //condition that checks if value is next one in the sequence
+    //else force the user to restart with a button included and restarts the logging
+
+
+    console.log(event.target.value + 'Key is being pressed up'); 
+    console.log(event.timeStamp); 
+
+    //
+  }
+
+  onKeyDown(event: any) {
+    console.log('Key is being pressed down');
+
+    // need a function to wipe data on detecting if input has become empty
+  }
+
+  onKeyPress(event: any) {
+    console.log('Key is being pressed'); 
+  }
+
   onSubmit() {
 
     if (this.userForm.get('username')?.invalid) {
@@ -86,7 +117,7 @@ export class RegisterComponent implements OnInit {
       
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
-          console.log(nav); // true if navigation is successful
+          console.log("Navigation = " + nav); // true if navigation is successful
         }, err => {
           console.log(err) // when there's an error
           //this.invalidRegistration = false; 
