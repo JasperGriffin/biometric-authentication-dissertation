@@ -32,19 +32,30 @@ export class LoginComponent implements OnInit {
       Validators.pattern('User#[0-9]{4}')])),
     sentence : new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern('The quick fox jumped over the lazy dog')])),
-    accept : new FormControl('', [(control) => {    
-      return !control.value ? { 'required': true } : null;
-    }]
-    )
+      //Validators.pattern('The quick fox jumped over the lazy dog')])),
+      Validators.pattern('test')]))
   });
+
+  get username() {
+    return this.userForm.get('username'); 
+  }
+
+  get sentence() {
+    return this.userForm.get('sentence'); 
+  }
+
+  clearValue() {
+    this.sentence?.reset(); 
+
+    //reset array
+  }
   
   onSubmit() {
 
-    if (this.userForm.get('username')?.invalid) {
+    if (this.username?.invalid) {
       this.userForm.get('username')?.markAllAsTouched(); 
     }
-    else if (this.userForm.get('sentence')?.invalid) {
+    else if (this.sentence?.invalid) {
       this.userForm.get('sentence')?.markAllAsTouched(); 
     }
     else {

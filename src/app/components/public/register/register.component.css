@@ -46,5 +46,10 @@
   }
 
   .register-btn {
-      width: 50%;
+    width: 50%;
+  }
+
+  .keyboard-icon {
+    transform: scale(1.5);
+    margin-bottom: 10px;
   }

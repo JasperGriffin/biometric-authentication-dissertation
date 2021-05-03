@@ -20,12 +20,30 @@ export class RegisterComponent implements OnInit {
 
   allComplete: boolean = false;
   errorMessage: string = ''; 
-
-  value = ''; 
+  userInput: string = 'test'; //The quick brown fox jumped over the lazy dog
+  userInputArray = new Array();
 
   constructor(
     private router: Router,
   ) {}
+
+
+  onKeyPress(event: any) {
+
+    var str = event.target.value; 
+
+    if (this.userInputArray.length) {
+      this.userInputArray.push(str);
+    }
+    else {
+      var lastVal = str.charAt(str.length - 1);
+      this.userInputArray.push(lastVal);
+
+    }
+
+    console.log("Array: " + this.userInputArray.toString());
+    
+  }
 
   ngOnInit(): void {}
 
@@ -44,18 +62,36 @@ export class RegisterComponent implements OnInit {
   userForm = new FormGroup({
     username : new FormControl('', Validators.compose([
       Validators.required,
-      //Validators.pattern('User#[0-9]{4}')])),
-      Validators.pattern('test')])),
+      Validators.pattern('User#[0-9]{4}')])),
 
     sentence : new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern('The quick fox jumped over the lazy dog')])),
-    accept : new FormControl('', [(control) => {    
+      Validators.pattern(this.userInput)])),
+
+    checkbox : new FormControl('', [(control) => {    
       return !control.value ? { 'required': true } : null;
     }]
     )
   });
 
+  get username() {
+    return this.userForm.get('username'); 
+  }
+
+  get sentence() {
+    return this.userForm.get('sentence'); 
+  }
+
+  get checkbox() {
+    return this.userForm.get('checkbox'); 
+  }
+
+  clearValue() {
+    this.sentence?.reset(); 
+
+    //reset array
+  }
+  
   updateAllComplete() {
     this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
   }
@@ -77,8 +113,6 @@ export class RegisterComponent implements OnInit {
 
   onKeyUp(event: any) {
 
-    var temp = ''
-
     //make this a separate method
     //if size is bigger than one, for loop and split into array and read last value
 
@@ -86,10 +120,10 @@ export class RegisterComponent implements OnInit {
     //else force the user to restart with a button included and restarts the logging
 
 
-    console.log(event.target.value + 'Key is being pressed up'); 
+    console.log(event.target.value + ' is being pressed up'); 
     console.log(event.timeStamp); 
 
-    //
+    //angular should check if what user is typing and if write, send array of values to backend 
   }
 
   onKeyDown(event: any) {
@@ -98,20 +132,16 @@ export class RegisterComponent implements OnInit {
     // need a function to wipe data on detecting if input has become empty
   }
 
-  onKeyPress(event: any) {
-    console.log('Key is being pressed'); 
-  }
-
   onSubmit() {
 
-    if (this.userForm.get('username')?.invalid) {
-      this.userForm.get('username')?.markAllAsTouched(); 
+    if (this.username?.invalid) {
+      this.username?.markAllAsTouched(); 
     }
-    else if (this.userForm.get('sentence')?.invalid) {
-      this.userForm.get('sentence')?.markAllAsTouched(); 
+    else if (this.sentence?.invalid) {
+      this.username?.markAllAsTouched(); 
     }
     else if (!this.allComplete) {
-      this.userForm.get('accept')?.markAsDirty();
+      this.checkbox?.markAsDirty();
     }
     else {
       

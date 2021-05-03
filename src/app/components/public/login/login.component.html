@@ -24,19 +24,21 @@
             <input matInput placeholder="User#0000" formControlName="username" required >
             <mat-icon matSuffix>account_circle</mat-icon>
             <!--<mat-hint>This will be the ID given to you</mat-hint>-->
-            <mat-error *ngIf="userForm.get('username')?.hasError('required')">Username is required</mat-error>
-            <mat-error *ngIf="userForm.get('username')?.errors?.pattern">Must be a valid user</mat-error>
+            <mat-error *ngIf="username?.errors?.required">Username is required</mat-error>
+            <mat-error *ngIf="username?.errors?.pattern">Must be a valid user</mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field appearance="legacy" [formGroup]="userForm">
             <mat-label>The quick fox jumped over the lazy dog</mat-label>
             <input matInput placeholder="Sentence" formControlName="sentence" required>
-            <mat-icon matSuffix>keyboard</mat-icon>
+            <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">
+                <mat-icon>keyboard</mat-icon>
+            </button>
             <mat-hint>This will record your keyboard patterns</mat-hint>
 
-            <mat-error *ngIf="userForm.get('sentence')?.hasError('required')">This field is required</mat-error>
-            <mat-error *ngIf="userForm.get('sentence')?.errors?.pattern">Sentence does not match above</mat-error>
+            <mat-error *ngIf="sentence?.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="sentence?.errors?.pattern">Sentence does not match above</mat-error>
           
             </mat-form-field>
         </p>        

@@ -26,7 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HomeComponent,
     HeaderComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent    
   ],
   imports: [
     BrowserModule,
