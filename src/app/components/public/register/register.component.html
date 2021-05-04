@@ -24,7 +24,7 @@
             <mat-form-field appearance="legacy" [formGroup]="userForm">
             <mat-label>test</mat-label>
             <input matInput placeholder="Sentence" formControlName="sentence" type="text" 
-            (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" required>
+            (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
             <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">
                   <mat-icon>keyboard</mat-icon>
@@ -37,33 +37,8 @@
             </mat-form-field>
         </p>
     
-        <section class="checkbox-section">
-            <span class="checkbox-list-section">
-              <mat-checkbox class="checkbox-margin"
-                            [checked]="allComplete"
-                            [color]="task.color"
-                            [indeterminate]="someComplete()"
-                            (change)="setAll($event.checked)"
-                            [formGroup]="userForm">
-                {{task.name}}
-              </mat-checkbox>
-            </span>
-            <span class="checkbox-list-section">
-              <ul>
-                <li *ngFor="let subtask of task.subtasks">
-                  <mat-checkbox [(ngModel)]="subtask.completed"
-                                [color]="subtask.color"
-                                (ngModelChange)="updateAllComplete()">
-                    {{subtask.name}}
-                  </mat-checkbox>
-                </li>
-              </ul>
-            </span>
-          </section>
-
-        <mat-error  *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and services</mat-error>
-        <mat-error  *ngIf="" class="checkbox-error">You must agree the terms and services</mat-error>
-
+        <app-checkbox></app-checkbox>
+        <mat-error *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and services</mat-error>
 
           <section>
             <div class="button-row">

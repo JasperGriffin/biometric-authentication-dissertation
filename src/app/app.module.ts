@@ -8,6 +8,7 @@ import { HomeComponent } from './components/public/home/home.component';
 import { HeaderComponent } from './components/includes/header/header.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { RegisterComponent } from './components/public/register/register.component';
+import { CheckboxComponent } from './components/ng-services/checkbox/checkbox.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -26,7 +27,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HomeComponent,
     HeaderComponent,
     LoginComponent,
-    RegisterComponent    
+    RegisterComponent,
+    CheckboxComponent    
   ],
   imports: [
     BrowserModule,

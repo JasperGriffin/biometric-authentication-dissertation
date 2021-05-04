@@ -1,43 +1,11 @@
 @import url('../login/login.component.css'); 
 
-
-/*.checkbox-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
-  .checkbox-margin {
-    margin: 0 10px;
-    font-size: 1vw;
-    padding: 0px 0 20px 0;
-  }*/
-
   .checkbox-error { 
   
     display: flex;
     align-content: center;
     align-items: center;
     position: absolute;
-  }
-
-
-
-  .checkbox-section {
-    margin-top: 30px;
-    margin-bottom: 20px;
-
-  }
-  
-  .checkbox-margin {
-    font-size: 1vw;
-  }
-  
-  ul {
-    list-style-type: none;
-    margin-top: 4px;
-    font-size: 1vw;
   }
 
   .button-row {

@@ -52,11 +52,13 @@ export class LoginComponent implements OnInit {
   
   onSubmit() {
 
+    
+
     if (this.username?.invalid) {
-      this.userForm.get('username')?.markAllAsTouched(); 
+      this.username?.markAllAsTouched(); 
     }
     else if (this.sentence?.invalid) {
-      this.userForm.get('sentence')?.markAllAsTouched(); 
+      this.sentence?.markAllAsTouched(); 
     }
     else {
       const loggedIn: string[] = ['/home'];
