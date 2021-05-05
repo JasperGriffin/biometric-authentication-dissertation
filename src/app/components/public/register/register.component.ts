@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { TypeCheckCompiler } from '@angular/compiler/src/view_compiler/type_check_compiler';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { CheckboxComponent } from '../../ng-services/checkbox/checkbox.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @Component({
   providers: [CheckboxComponent],
@@ -14,11 +15,9 @@ export class RegisterComponent implements OnInit {
 
   userInput: string = 'test'; //The quick brown fox jumped over the lazy dog
   userInputArray = new Array();
-  allComplete: boolean = false;
-  
+
   constructor(
     private router: Router,
-    private check: CheckboxComponent
     ) {}
 
   ngOnInit(): void {}
@@ -38,17 +37,11 @@ export class RegisterComponent implements OnInit {
     )
   });
 
-  get username() {
-    return this.userForm.get('username'); 
-  }
+  get username() { return this.userForm.get('username');  }
 
-  get sentence() {
-    return this.userForm.get('sentence'); 
-  }
+  get sentence() { return this.userForm.get('sentence'); }
 
-  get checkbox() {
-    return this.userForm.get('checkbox'); 
-  }
+  get checkbox() { return this.userForm.get('checkbox'); }
 
   clearValue() {
     this.sentence?.reset(); 
@@ -108,6 +101,12 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  complete: boolean = false;
+  
+  checkComplete(event: any) {
+    this.complete = event; 
+  }
+
   onSubmit() {
 
     if (this.username?.invalid) {
@@ -116,16 +115,9 @@ export class RegisterComponent implements OnInit {
     else if (this.sentence?.invalid) {
       this.sentence?.markAllAsTouched(); 
     }
-    else if (this.check.validate()) {
+    else if (!this.complete) {
       this.checkbox?.markAsDirty();
-      console.log('register.component is failing!'); 
-
     }
-
-
-    //else if (!this.allComplete) {
-    //  this.checkbox?.markAsDirty();
-    //}
     else {
 
       //this.authService(); 
@@ -142,3 +134,5 @@ export class RegisterComponent implements OnInit {
   }
 
 }
+
+

@@ -36,13 +36,9 @@ export class LoginComponent implements OnInit {
       Validators.pattern('test')]))
   });
 
-  get username() {
-    return this.userForm.get('username'); 
-  }
+  get username() { return this.userForm.get('username');  }
 
-  get sentence() {
-    return this.userForm.get('sentence'); 
-  }
+  get sentence() { return this.userForm.get('sentence'); }
 
   clearValue() {
     this.sentence?.reset(); 

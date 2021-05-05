@@ -2,7 +2,7 @@
  * SOURCE: https://material.angular.io/components/checkbox/examples
 */
 
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
 export interface Task {
@@ -18,7 +18,6 @@ export interface Task {
 })
 export class CheckboxComponent  {
 
-    
     task: Task = {
     name: 'I have read the information sheet and agreed to the consent form',
     completed: false,
@@ -31,9 +30,12 @@ export class CheckboxComponent  {
     };
 
     allComplete: boolean = false;
+    //@Input() checkComplete: boolean = this.allComplete; 
+    @Output() update: EventEmitter<boolean> = new EventEmitter<boolean>(); 
 
     updateAllComplete() {
         this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+        this.update.emit(this.allComplete);
     }
 
     someComplete(): boolean {
@@ -45,20 +47,11 @@ export class CheckboxComponent  {
 
     setAll(completed: boolean) {
         this.allComplete = completed;
+        this.update.emit(this.allComplete);
         if (this.task.subtasks == null) {
-        return;
+            return;
         }
         this.task.subtasks.forEach(t => t.completed = completed);
-    }
-
-    validate() {
-      if (this.allComplete) {
-        return true;
-      }
-      else {
-        this.allComplete = true;
-        return this.allComplete;
-      }
-    }
+    }   
 }
 
