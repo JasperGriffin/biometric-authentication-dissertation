@@ -28,7 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    CheckboxComponent    
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,

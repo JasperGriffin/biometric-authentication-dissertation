@@ -33,10 +33,11 @@
 
             <mat-error *ngIf="sentence?.errors?.required">This field is required</mat-error>
             <mat-error *ngIf="sentence?.errors?.pattern">Sentence does not match above</mat-error>
-          
             </mat-form-field>
+            <mat-error *ngIf="this.anotherValid === false" class="checkbox-error">Typo detected, click the keyboard icon to restart</mat-error>
+
         </p>
-    
+
         
         <app-checkbox (update)="checkComplete($event)"></app-checkbox>
         <mat-error *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and services</mat-error>
