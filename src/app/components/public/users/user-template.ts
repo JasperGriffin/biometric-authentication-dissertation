@@ -1,8 +1,7 @@
 export class UserTemplate {
-
-    keystrokes: string[] = []; 
+    username: string = ''; 
     keyups : number[] = [];
-    keypresses : number[] = [];
+    keypresses : string[] = [];
     keydowns : number[] = []; 
 }
 

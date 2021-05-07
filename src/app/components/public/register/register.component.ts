@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { CheckboxComponent } from './checkbox/checkbox.component';
-
 import { KeyloggerService } from '../../../services/keylogger.service' 
+import { ParserService } from '../../../services/parser.service';
 
 @Component({
   providers: [CheckboxComponent],
@@ -22,6 +21,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private keylogger: KeyloggerService,
+    private parser: ParserService,
     private router: Router
     ) {}
 
@@ -30,15 +30,11 @@ export class RegisterComponent implements OnInit {
   userForm = new FormGroup({
     username : new FormControl('', Validators.compose([
       Validators.required,
-      
       Validators.pattern('User#[0-9]{4}') 
-      
     ])),
-
     sentence : new FormControl('', Validators.compose([
       Validators.required,
       Validators.pattern(this.userInput)])),
-
     checkbox : new FormControl('', [(control) => {    
       return !control.value ? { 'required': true } : null;
     }]
@@ -51,23 +47,20 @@ export class RegisterComponent implements OnInit {
 
   get checkbox() { return this.userForm.get('checkbox'); }
   
-  onKeyUp(event: any) {
-    this.keylogger.onKeyUp(event); 
-  }
+  onKeyUp(event: any) { this.keylogger.onKeyUp(event); }
 
-  onKeyDown(event: any) {
-    this.keylogger.onKeyDown(event);
-  }
+  onKeyDown(event: any) { this.keylogger.onKeyDown(event); }
 
-  onKeyPress(event: any) {
-    this.keylogger.onKeyPress(event);
-  }
+  onKeyPress(event: any) { this.keylogger.onKeyPress(event); }
 
   validateInput(event: any) {
+
+    /*RESTRICT ALL CHARACTERS THAT AREN'T A-Z*/
+    /*validateInput doesn't read ctrl, tab, etc so this needs to be done elsewhere*/
+    console.log("validateInput 1: " + event.target.value); 
+    console.log("validateInput 2: " + this.keylogger.getUser().keydowns.toString());
+
     const regex = new RegExp(event.target.value);
-
-    console.log('keys: ' + event.key); 
-
     if (regex.test(this.userInput) && this.valid) {
       console.log('This sentence is right: ' + event.target.value);
     }
@@ -79,7 +72,6 @@ export class RegisterComponent implements OnInit {
   //keyboard icon
   clearValue() {
     this.sentence?.reset(); 
-    this.sentence?.enable();
     this.valid = true; 
     this.anotherValid = true;
     this.keylogger.reset(); 
@@ -89,35 +81,44 @@ export class RegisterComponent implements OnInit {
     this.complete = event; 
   }
 
-  onSubmit() {
-
+  onSubmitValidate() {
     if (this.username?.invalid) {
-      this.username?.markAllAsTouched(); 
+      return this.username?.markAllAsTouched(); 
     }
     else if (this.sentence?.invalid) {
-      this.sentence?.markAllAsTouched(); 
+      return this.sentence?.markAllAsTouched(); 
     }
     else if (!this.valid) {
-      //this.sentence?.markAllAsTouched();
-      this.anotherValid = false;
-      console.log('this condition is being passed'); 
+      return this.anotherValid = false;
     }
     else if (!this.complete) {
-      this.checkbox?.markAsDirty();
+      return this.checkbox?.markAsDirty();
     }
-    else {
+    else { return true }
+  }
 
-      //this.authService(); 
+  onSubmit() {
+
+    this.keylogger.initialiseName(this.username?.value);
+
+    if (this.onSubmitValidate()) {
+
+      const user = this.keylogger.getUser();
+      //const data = this.parser.getUser(user)
+      this.parser.getUser(user); 
+
+      //this.authService();
       
+  
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
+          this.keylogger.reset();
           console.log("Navigation = " + nav); // true if navigation is successful
         }, err => {
           console.log(err) // when there's an error
         });
-    }
+    }  
   }
-
 }
 
 
