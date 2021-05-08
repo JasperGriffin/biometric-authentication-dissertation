@@ -21,6 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatCheckboxModule,
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

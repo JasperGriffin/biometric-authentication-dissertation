@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       Validators.pattern('User#[0-9]{4}')])),
     sentence : new FormControl('', Validators.compose([
       Validators.required,
-      //Validators.pattern('The quick fox jumped over the lazy dog')])),
       Validators.pattern('test')]))
   });
 

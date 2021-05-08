@@ -4,10 +4,3 @@ export class UserTemplate {
     keypresses : string[] = [];
     keydowns : number[] = []; 
 }
-
-/*export interface UserTemplate {
-    keystrokes: [];
-    keyups: [];
-    keypresses: [];
-    keydowns: [];
-}*/

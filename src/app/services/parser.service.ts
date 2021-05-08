@@ -13,32 +13,37 @@ export class ParserService {
   }
 
   getUser(user: any) {
-  
-    console.log("keyups in parser: " + user.keyups); 
-    console.log("keypresses in parser: " + user.keypresses); 
-    console.log("LENGTH: " + user.keyups.length)
 
-    //this.calcDownLatency(user); 
+    console.log("user.keydowns.length: " + user.keydowns.length);
 
+    this.setUsername(user); 
+    this.setKeystrokes(user); 
+    this.calcDownLatency(user); 
+    this.calcHoldDuration(user);
 
+    return this.keystrokes;
+  }
+
+  setUsername(user: any) {
+    this.keystrokes.username = user.username; 
+  }
+
+  setKeystrokes(user: any) {
+    this.keystrokes.keystrokes = user.keypresses
   }
 
   calcDownLatency(user: any) {
-    /*for (int i = 0; i < 4; i++) {
-    	newarr.push(arr[i+1] - arr[i]);  
-    }*/
+    for (var i = 0; i < user.keydowns.length - 1; i++) {
+      var keyDown = user.keydowns[i + 1] - user.keydowns[i];  
+      this.keystrokes.keydownLatency.push(keyDown); 
+    }
   }
 
-  calcHoldDuration() {
-
-  }
-  
+  calcHoldDuration(user: any) {
+    for (var i = 0; i < user.keydowns.length; i++) {
+      var holdingTime = user.keyups[i] - user.keydowns[i]
+      this.keystrokes.holdingDuration.push(holdingTime); 
+    }
+  }  
 }
 
-/* username: string = '';
-    keystrokes: string[] = [];
-    keydownLatency: number[] = []; //time between two key presses
-    keyupLatency: number[] = []; //time between two key releases
-    holdingDuration: number[] = [];  //time between keydown and subsequent keyup
-    releaseDuration: number[] = []; //time between keyup and subsequent keydown
-}*/

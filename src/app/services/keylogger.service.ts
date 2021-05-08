@@ -30,9 +30,8 @@ export class KeyloggerService {
   onKeyDown(event: any) {
 
     if (event.key !== 'Tab') {
-      this.user.keydowns.push(event.key); //timeStamp
+      this.user.keydowns.push(event.timeStamp);
       console.log("keydowns: " + this.user.keydowns.toString()); 
-
     }
   }
 

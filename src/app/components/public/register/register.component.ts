@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { KeyloggerService } from '../../../services/keylogger.service' 
 import { ParserService } from '../../../services/parser.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   providers: [CheckboxComponent],
@@ -13,16 +14,18 @@ import { ParserService } from '../../../services/parser.service';
 })
 export class RegisterComponent implements OnInit {
 
-  userInput: string = 'test'; //The quick brown fox jumped over the lazy dog
+  userInput: string = 'this is a test'; //The quick brown fox jumped over the lazy dog
   userInputArray = new Array();
   complete: boolean = false;
   valid: boolean = true; 
   anotherValid: boolean = true; 
+  readonly API_URL = 'http://localhost:4200';
 
   constructor(
     private keylogger: KeyloggerService,
     private parser: ParserService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
     ) {}
 
   ngOnInit(): void {}
@@ -55,17 +58,11 @@ export class RegisterComponent implements OnInit {
 
   validateInput(event: any) {
 
-    /*RESTRICT ALL CHARACTERS THAT AREN'T A-Z*/
     /*validateInput doesn't read ctrl, tab, etc so this needs to be done elsewhere*/
-    console.log("validateInput 1: " + event.target.value); 
-    console.log("validateInput 2: " + this.keylogger.getUser().keydowns.toString());
-
     const regex = new RegExp(event.target.value);
-    if (regex.test(this.userInput) && this.valid) {
-      console.log('This sentence is right: ' + event.target.value);
-    }
-    else {
+    if (!regex.test(this.userInput) ||!this.valid) {
       this.valid = false; 
+      console.log("This sentence is wrong"); 
     }
   }
 
@@ -97,17 +94,33 @@ export class RegisterComponent implements OnInit {
     else { return true }
   }
 
+  
+
   onSubmit() {
+    
 
     this.keylogger.initialiseName(this.username?.value);
 
     if (this.onSubmitValidate()) {
 
-      const user = this.keylogger.getUser();
+      const userTemplate = this.keylogger.getUser();
       //const data = this.parser.getUser(user)
-      this.parser.getUser(user); 
+      const user = this.parser.getUser(userTemplate); 
+
+      console.log("USER DATA");
+      console.log(user);  
 
       //this.authService();
+      
+      this.http.post(this.API_URL + 'api/test', JSON.stringify(user))
+        .subscribe(
+          (res) => {
+            console.log("Success"); 
+          },
+          (err) => {
+            console.log("Error"); 
+          }
+        ); 
       
   
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
