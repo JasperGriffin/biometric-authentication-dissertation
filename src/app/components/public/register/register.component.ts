@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit {
 
       //this.authService();
       
-      this.http.post(this.API_URL + 'api/test', JSON.stringify(user))
+      /*this.http.post(this.API_URL + 'api/test', JSON.stringify(user))
         .subscribe(
           (res) => {
             console.log("Success"); 
@@ -120,7 +120,7 @@ export class RegisterComponent implements OnInit {
           (err) => {
             console.log("Error"); 
           }
-        ); 
+        ); */
       
   
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
@@ -128,7 +128,6 @@ export class RegisterComponent implements OnInit {
           this.keylogger.reset();
           console.log("Navigation = " + nav); // true if navigation is successful
         }, err => {
-          console.log(err) // when there's an error
         });
     }  
   }
