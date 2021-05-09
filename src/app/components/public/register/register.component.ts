@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { KeyloggerService } from '../../../services/keylogger.service' 
 import { ParserService } from '../../../services/parser.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   providers: [CheckboxComponent],
@@ -19,13 +19,12 @@ export class RegisterComponent implements OnInit {
   complete: boolean = false;
   valid: boolean = true; 
   anotherValid: boolean = true; 
-  readonly API_URL = 'http://localhost:4200';
 
   constructor(
     private keylogger: KeyloggerService,
     private parser: ParserService,
-    private router: Router,
-    private http: HttpClient
+    private auth: AuthService,
+    private router: Router
     ) {}
 
   ngOnInit(): void {}
@@ -94,7 +93,6 @@ export class RegisterComponent implements OnInit {
     else { return true }
   }
 
-  
 
   onSubmit() {
     
@@ -104,25 +102,11 @@ export class RegisterComponent implements OnInit {
     if (this.onSubmitValidate()) {
 
       const userTemplate = this.keylogger.getUser();
-      //const data = this.parser.getUser(user)
+
       const user = this.parser.getUser(userTemplate); 
 
-      console.log("USER DATA");
-      console.log(user);  
-
-      //this.authService();
-      
-      /*this.http.post(this.API_URL + 'api/test', JSON.stringify(user))
-        .subscribe(
-          (res) => {
-            console.log("Success"); 
-          },
-          (err) => {
-            console.log("Error"); 
-          }
-        ); */
-      
-  
+      this.auth.register(user); 
+    
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
           this.keylogger.reset();
