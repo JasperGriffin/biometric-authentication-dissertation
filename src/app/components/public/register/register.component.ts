@@ -14,7 +14,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  userInput: string = 'this is a test'; //The quick brown fox jumped over the lazy dog
+  userInput: string = 'test'; //The quick brown fox jumped over the lazy dog
   userInputArray = new Array();
   complete: boolean = false;
   valid: boolean = true; 
@@ -59,11 +59,10 @@ export class RegisterComponent implements OnInit {
   //mouse listener
   @HostListener('mousemove', ['$event'])
   handleMousemove(event: MouseEvent) {
-    console.log('Mouse is moving'); 
+    this.keylogger.onMouseMove(event); 
   }
 
   validateInput(event: any) {
-
     /*validateInput doesn't read ctrl, tab, etc so this needs to be done elsewhere*/
     const regex = new RegExp(event.target.value);
     if (!regex.test(this.userInput) ||!this.valid) {
@@ -102,21 +101,22 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit() {
-    this.keylogger.initialiseName(this.username?.value);
+    this.keylogger.initialiseUser(this.username?.value);
     if (this.onSubmitValidate()) {
 
       const userTemplate = this.keylogger.getUser();
+
       const user = this.parser.getUser(userTemplate); 
       this.auth.register(user); 
     
       //make this asymc or subscirbe to auth.register and on success, navgiate  
-      /*this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
+      this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
           this.keylogger.reset();
           this.parser.reset(); 
           console.log("Navigation = " + nav); // true if navigation is successful
         }, err => {
-        });*/
+        });
     }  
   }
 
