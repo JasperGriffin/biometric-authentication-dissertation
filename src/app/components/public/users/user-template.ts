@@ -3,4 +3,5 @@ export class UserTemplate {
     'keyups' : number[] = [];
     'keypresses' : string[] = [];
     'keydowns' : number[] = []; 
+    //'mousemove: number = ''
 }

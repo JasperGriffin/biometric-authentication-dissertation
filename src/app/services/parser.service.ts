@@ -45,5 +45,11 @@ export class ParserService {
       this.keystrokes.holdingDuration.push(holdingTime); 
     }
   }  
+
+  reset() {
+    this.keystrokes.keystrokes = ['w','e'];
+    this.keystrokes.holdingDuration = [];
+    this.keystrokes.keydownLatency = []; 
+  }
 }
 

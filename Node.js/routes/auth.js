@@ -2,7 +2,6 @@ const router = require('express').Router();
 
 router.post('/register', (req, res) => {
 
-    
     //JWT tokens
 
     console.log('username: ' + req.body.username); 

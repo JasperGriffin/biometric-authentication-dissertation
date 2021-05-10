@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -49,11 +49,18 @@ export class RegisterComponent implements OnInit {
 
   get checkbox() { return this.userForm.get('checkbox'); }
   
+  //keyboard listeners
   onKeyUp(event: any) { this.keylogger.onKeyUp(event); }
 
   onKeyDown(event: any) { this.keylogger.onKeyDown(event); }
 
   onKeyPress(event: any) { this.keylogger.onKeyPress(event); }
+
+  //mouse listener
+  @HostListener('mousemove', ['$event'])
+  handleMousemove(event: MouseEvent) {
+    console.log('Mouse is moving'); 
+  }
 
   validateInput(event: any) {
 
@@ -95,26 +102,25 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit() {
-    
-
     this.keylogger.initialiseName(this.username?.value);
-
     if (this.onSubmitValidate()) {
 
       const userTemplate = this.keylogger.getUser();
-
       const user = this.parser.getUser(userTemplate); 
-
       this.auth.register(user); 
     
-      this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
+      //make this asymc or subscirbe to auth.register and on success, navgiate  
+      /*this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
           this.keylogger.reset();
+          this.parser.reset(); 
           console.log("Navigation = " + nav); // true if navigation is successful
         }, err => {
-        });
+        });*/
     }  
   }
+
+  
 }
 
 
