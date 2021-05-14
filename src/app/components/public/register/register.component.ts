@@ -14,7 +14,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  userInput: string = 'test'; //The quick brown fox jumped over the lazy dog
+  userInput: string = 'this is a test'; //The quick brown fox jumped over the lazy dog
   userInputArray = new Array();
   complete: boolean = false;
   valid: boolean = true; 

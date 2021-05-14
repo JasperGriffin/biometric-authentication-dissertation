@@ -1,3 +1,10 @@
+<!--
+    https://material.angular.io/components/card/examples - Card (Angular Material)
+    https://material.angular.io/components/form-field/overview - Form field (Angular Material)
+    https://material.angular.io/components/button/overview - Button (Angular Material)
+    https://material.angular.io/components/checkbox/overview - CheckBox (Angular Material)
+-->
+
 <mat-card class="card-container">
 
     <div class="box-container">
@@ -22,7 +29,7 @@
         </p>
         <p>
             <mat-form-field appearance="legacy" [formGroup]="userForm">
-            <mat-label>test</mat-label>
+            <mat-label>this is a test</mat-label>
             <input matInput placeholder="Sentence" formControlName="sentence" type="text" 
             (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
