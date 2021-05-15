@@ -28,7 +28,7 @@
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field appearance="legacy" [formGroup]="userForm">
+            <mat-form-field appearance="legacy" [formGroup]="userForm" id="0">
             <mat-label>this is a test</mat-label>
             <input matInput placeholder="Sentence" formControlName="sentence" type="text" 
             (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
@@ -44,8 +44,23 @@
             <mat-error *ngIf="this.anotherValid === false" class="checkbox-error">Typo detected, click the keyboard icon to restart</mat-error>
 
         </p>
+        <p>
+            <mat-form-field appearance="legacy" [formGroup]="userForm" id="1">
+            <mat-label>this is a test</mat-label>
+            <input matInput placeholder="Sentence" formControlName="sentence" type="text" 
+            (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
-        
+            <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">
+                  <mat-icon>keyboard</mat-icon>
+            </button>
+            <mat-hint>This will record your keyboard patterns</mat-hint>
+            
+            <mat-error *ngIf="sentence?.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="sentence?.errors?.pattern">Sentence does not match above</mat-error>
+            </mat-form-field>
+        </p>
+  
+
         <app-checkbox (update)="checkComplete($event)"></app-checkbox>
         <mat-error *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and services</mat-error>
 

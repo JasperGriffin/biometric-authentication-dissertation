@@ -1,5 +1,10 @@
 @import url('../login/login.component.css'); 
 
+
+  .card-container {
+
+    margin-top: 25px;
+  }
   .checkbox-error { 
   
     display: flex;

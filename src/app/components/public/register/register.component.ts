@@ -105,9 +105,10 @@ export class RegisterComponent implements OnInit {
     if (this.onSubmitValidate()) {
 
       const userTemplate = this.keylogger.getUser();
+      console.log(userTemplate); 
 
-      const user = this.parser.getUser(userTemplate); 
-      this.auth.register(user); 
+      //const user = this.parser.getUser(userTemplate); 
+      //this.auth.register(user); 
     
       //make this asymc or subscirbe to auth.register and on success, navgiate  
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
