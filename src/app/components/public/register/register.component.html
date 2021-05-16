@@ -16,7 +16,7 @@
             <h3>Sign up</h3>
         </div>
 
-        <p>
+        <div>
 
             <mat-form-field appearance="legacy" [formGroup]="userForm">
             <mat-label>Username</mat-label>
@@ -26,40 +26,63 @@
             <mat-error *ngIf="username?.errors?.required">Username is required</mat-error>
             <mat-error *ngIf="username?.errors?.pattern">Must be a valid user</mat-error>
             </mat-form-field>
-        </p>
-        <p>
+        </div>
+
+
+        <div>
             <mat-form-field appearance="legacy" [formGroup]="userForm" id="0">
-            <mat-label>this is a test</mat-label>
-            <input matInput placeholder="Sentence" formControlName="sentence" type="text" 
-            (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
+                <mat-label>this is a test</mat-label>
+                <input matInput placeholder="Sentence" formControlName="firstSentence" type="text" 
+                (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
-            <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">
-                  <mat-icon>keyboard</mat-icon>
-            </button>
-            <mat-hint>This will record your keyboard patterns</mat-hint>
+                <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue($event)">
+                    <mat-icon>keyboard</mat-icon>
+                </button>
+                <mat-hint>This will record your keyboard patterns</mat-hint>
 
-            <mat-error *ngIf="sentence?.errors?.required">This field is required</mat-error>
-            <mat-error *ngIf="sentence?.errors?.pattern">Sentence does not match above</mat-error>
+                <mat-error *ngIf="firstSentence?.errors?.required">This field is required</mat-error>
+                <mat-error *ngIf="firstSentence?.errors?.pattern">Sentence does not match above</mat-error>
+
             </mat-form-field>
-            <mat-error *ngIf="this.anotherValid === false" class="checkbox-error">Typo detected, click the keyboard icon to restart</mat-error>
+            <mat-error *ngIf="this.anotherValid[0] === false" class="typo-error">Typo detected, click the keyboard icon to restart</mat-error>
 
-        </p>
-        <p>
+        </div>
+        
+        
+        <div>
             <mat-form-field appearance="legacy" [formGroup]="userForm" id="1">
             <mat-label>this is a test</mat-label>
-            <input matInput placeholder="Sentence" formControlName="sentence" type="text" 
+            <input matInput placeholder="Sentence" formControlName="secondSentence" type="text" 
             (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
-            <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">
+            <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue($event)">
                   <mat-icon>keyboard</mat-icon>
             </button>
             <mat-hint>This will record your keyboard patterns</mat-hint>
             
-            <mat-error *ngIf="sentence?.errors?.required">This field is required</mat-error>
-            <mat-error *ngIf="sentence?.errors?.pattern">Sentence does not match above</mat-error>
+            <mat-error *ngIf="secondSentence?.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="secondSentence?.errors?.pattern">Sentence does not match above</mat-error>
             </mat-form-field>
-        </p>
-  
+            <mat-error *ngIf="this.anotherValid[1] === false" class="typo-error">Typo detected, click the keyboard icon to restart</mat-error>
+        </div>
+        
+        <div>
+            <mat-form-field appearance="legacy" [formGroup]="userForm" id="2">
+            <mat-label>this is a test</mat-label>
+            <input matInput placeholder="Sentence" formControlName="thirdSentence" type="text" 
+            (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
+
+            <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue($event)">
+                  <mat-icon>keyboard</mat-icon>
+            </button>
+            <mat-hint>This will record your keyboard patterns</mat-hint>
+            
+            <mat-error *ngIf="thirdSentence?.errors?.required">This field is required</mat-error>
+            <mat-error *ngIf="thirdSentence?.errors?.pattern">Sentence does not match above</mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="this.anotherValid[2] === false" class="typo-error">Typo detected, click the keyboard icon to restart</mat-error>
+        </div>
+
 
         <app-checkbox (update)="checkComplete($event)"></app-checkbox>
         <mat-error *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and services</mat-error>

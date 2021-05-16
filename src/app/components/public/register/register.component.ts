@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { KeyloggerService } from '../../../services/keylogger.service' 
@@ -17,14 +17,17 @@ export class RegisterComponent implements OnInit {
   userInput: string = 'this is a test'; //The quick brown fox jumped over the lazy dog
   userInputArray = new Array();
   complete: boolean = false;
-  valid: boolean = true; 
-  anotherValid: boolean = true; 
+  valid: boolean[] = [true,true,true]; 
+  anotherValid: boolean[] = [true,true,true]; 
+  keyboardID: number = 4; 
+  mouseID: number = 6; 
+  num: number = 0; 
 
   constructor(
     private keylogger: KeyloggerService,
     private parser: ParserService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
     ) {}
 
   ngOnInit(): void {}
@@ -34,18 +37,36 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern('User#[0-9]{4}') 
     ])),
-    sentence : new FormControl('', Validators.compose([
+
+    firstSentence : new FormControl('', Validators.compose([
       Validators.required,
-      Validators.pattern(this.userInput)])),
+      Validators.pattern(this.userInput),
+    ])),
+
+    secondSentence : new FormControl('', Validators.compose([
+      Validators.required,
+      Validators.pattern(this.userInput),
+    ])),
+
+    thirdSentence : new FormControl('', Validators.compose([
+      Validators.required,
+      Validators.pattern(this.userInput),
+    ])),
+
     checkbox : new FormControl('', [(control) => {    
       return !control.value ? { 'required': true } : null;
-    }]
-    )
+    }])
   });
+
+ 
 
   get username() { return this.userForm.get('username');  }
 
-  get sentence() { return this.userForm.get('sentence'); }
+  get firstSentence() { return this.userForm.get('firstSentence'); }
+
+  get secondSentence() { return this.userForm.get('secondSentence') }
+
+  get thirdSentence() { return this.userForm.get('thirdSentence') }
 
   get checkbox() { return this.userForm.get('checkbox'); }
   
@@ -64,36 +85,63 @@ export class RegisterComponent implements OnInit {
 
   validateInput(event: any) {
     /*validateInput doesn't read ctrl, tab, etc so this needs to be done elsewhere*/
+    this.num = event.path[this.keyboardID].id;
+
     const regex = new RegExp(event.target.value);
     if (!regex.test(this.userInput) ||!this.valid) {
-      this.valid = false; 
+      this.valid[this.num] = false; 
       console.log("This sentence is wrong"); 
     }
   }
 
+
   //keyboard icon
-  clearValue() {
-    this.sentence?.reset(); 
-    this.valid = true; 
-    this.anotherValid = true;
-    this.keylogger.reset(); 
+  clearValue(event: any) {
+    this.num = event.path[this.mouseID].id; 
+    const sentence = this.checkSentence(this.num);
+    sentence?.reset();
+    this.valid[this.num] = true; 
+    this.anotherValid[this.num] = true;
+    this.keylogger.reset(this.num); 
+
   }
 
   checkComplete(event: any) {
     this.complete = event; 
   }
 
+  checkSentence(num: number) {
+    if (num == 0) {
+      return this.firstSentence; 
+    }
+    else if (num == 1) {
+      return this.secondSentence;
+    }
+    else if (num == 2) {
+      return this.thirdSentence; 
+    }
+    else {
+      return;
+    }
+  }
+
   onSubmitValidate() {
+
     if (this.username?.invalid) {
       return this.username?.markAllAsTouched(); 
     }
-    else if (this.sentence?.invalid) {
-      return this.sentence?.markAllAsTouched(); 
+
+    for (var i = 0; i < 3; i++) {
+      const sentence = this.checkSentence(i);
+      if (sentence?.invalid) {
+        return sentence?.markAllAsTouched(); 
+      }
+      else if (!this.valid[i]) {
+        return this.anotherValid[i] = false;
+      }
     }
-    else if (!this.valid) {
-      return this.anotherValid = false;
-    }
-    else if (!this.complete) {
+
+    if (!this.complete) {
       return this.checkbox?.markAsDirty();
     }
     else { return true }
@@ -105,19 +153,18 @@ export class RegisterComponent implements OnInit {
     if (this.onSubmitValidate()) {
 
       const userTemplate = this.keylogger.getUser();
-      console.log(userTemplate); 
-
-      //const user = this.parser.getUser(userTemplate); 
-      //this.auth.register(user); 
+      const user = this.parser.getUser(userTemplate); 
+      this.auth.register(user); 
     
       //make this asymc or subscirbe to auth.register and on success, navgiate  
+      
       this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
         .then(nav => {
-          this.keylogger.reset();
-          this.parser.reset(); 
+          //this.keylogger.reset();
+          //this.parser.reset(); 
           console.log("Navigation = " + nav); // true if navigation is successful
         }, err => {
-        });
+        }); 
     }  
   }
 

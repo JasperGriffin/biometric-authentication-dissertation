@@ -6,23 +6,27 @@ import { KeystrokesTemplate } from '../components/public/users/keystrokes-templa
 })
 export class ParserService {
 
-  private keystrokes: KeystrokesTemplate;
+  private keystrokes;
 
   constructor() {
-    this.keystrokes = new KeystrokesTemplate();
+    this.keystrokes = KeystrokesTemplate;
   }
 
   getUser(user: any) {
 
-    console.log("user.keydowns.length: " + user.keydowns.length);
+    //console.log("user.keydowns.length: " + user.keydowns.length);
 
     this.setUsername(user); 
-    this.setKeystrokes(user); 
     this.setMousemove(user);
-    this.calcDownLatency(user); 
-    this.calcUpLatency(user);
-    this.calcHoldDuration(user);
-    this.calcReleaseDuration(user);
+    this.setKeystrokes(user); 
+
+    for (var i = 0; i < 3; i++) {
+      
+      this.calcDownLatency(user, i); 
+      this.calcUpLatency(user, i);
+      this.calcHoldDuration(user, i);
+      this.calcReleaseDuration(user, i);
+    }
 
     return this.keystrokes;
   }
@@ -32,49 +36,49 @@ export class ParserService {
   }
 
   setKeystrokes(user: any) {
-    this.keystrokes.keystrokes = user.keypresses;
+    this.keystrokes.keystrokes = user.sentence[0].keypresses;
   }
 
   setMousemove(user: any) {
     this.keystrokes.mousemove = user.mousemove; 
   }
 
-  calcDownLatency(user: any) {
-    for (var i = 0; i < user.keydowns.length - 1; i++) {
-      var keyDown = user.keydowns[i + 1] - user.keydowns[i];  
-      this.keystrokes.keydownLatency.push(keyDown); 
+  calcDownLatency(user: any, j: number) {
+    for (var i = 0; i < user.sentence[j].keydowns.length - 1; i++) {
+      var keyDown = user.sentence[j].keydowns[i + 1] - user.sentence[j].keydowns[i];  
+      this.keystrokes.key[j].keydownLatency.push(keyDown); 
     }
   }
 
-  calcUpLatency(user: any) {
-    for (var i = 0; i < user.keyups.length - 1; i++) {
-      var keyUp = user.keyups[i + 1] - user.keyups[i]; 
-      this.keystrokes.keyupLatency.push(keyUp);
+  calcUpLatency(user: any, j: number) {
+    for (var i = 0; i < user.sentence[j].keyups.length - 1; i++) {
+      var keyUp = user.sentence[j].keyups[i + 1] - user.sentence[j].keyups[i]; 
+      this.keystrokes.key[j].keyupLatency.push(keyUp);
     }
   }
 
-  calcHoldDuration(user: any) {
-    for (var i = 0; i < user.keydowns.length; i++) {
-      var holdingTime = user.keyups[i] - user.keydowns[i];
-      this.keystrokes.holdingDuration.push(holdingTime); 
+  calcHoldDuration(user: any, j: number) {
+    for (var i = 0; i < user.sentence[j].keydowns.length; i++) {
+      var holdingTime = user.sentence[j].keyups[i] - user.sentence[j].keydowns[i];
+      this.keystrokes.key[j].holdingDuration.push(holdingTime); 
     }
   }  
 
-  calcReleaseDuration(user: any) {
-    for (var i = 0; i < user.keyups.length - 1; i++) {
-      var releaseTime = user.keydowns[i+1] - user.keyups[i];
-      this.keystrokes.releaseDuration.push(releaseTime); 
+  calcReleaseDuration(user: any, j: number) {
+    for (var i = 0; i < user.sentence[j].keyups.length - 1; i++) {
+      var releaseTime = user.sentence[j].keydowns[i+1] - user.sentence[j].keyups[i];
+      this.keystrokes.key[j].releaseDuration.push(releaseTime); 
     }
   }
 
-  reset() {
-    this.keystrokes.username = '';
+  reset(num: number) {
+    /*this.keystrokes.username = '';
     this.keystrokes.keystrokes = [];
     this.keystrokes.keydownLatency = []; 
     this.keystrokes.keyupLatency = []; 
     this.keystrokes.holdingDuration = [];
     this.keystrokes.releaseDuration = []; 
-    this.keystrokes.mousemove = 0; 
+    this.keystrokes.mousemove = 0; */
   }
 }
 
