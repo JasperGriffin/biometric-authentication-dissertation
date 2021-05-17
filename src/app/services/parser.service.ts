@@ -71,14 +71,18 @@ export class ParserService {
     }
   }
 
-  reset(num: number) {
-    /*this.keystrokes.username = '';
+  clear() {
+
+    this.keystrokes.username = '';
     this.keystrokes.keystrokes = [];
-    this.keystrokes.keydownLatency = []; 
-    this.keystrokes.keyupLatency = []; 
-    this.keystrokes.holdingDuration = [];
-    this.keystrokes.releaseDuration = []; 
-    this.keystrokes.mousemove = 0; */
+    this.keystrokes.mousemove = 0; 
+
+    for (var i = 0; i < 3; i++) {
+      this.keystrokes.key[i].keydownLatency = [];
+      this.keystrokes.key[i].keyupLatency = [];
+      this.keystrokes.key[i].holdingDuration = [];
+      this.keystrokes.key[i].releaseDuration = [];
+    }
   }
 }
 

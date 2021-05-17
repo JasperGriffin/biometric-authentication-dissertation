@@ -1,0 +1,52 @@
+//https://www.positronx.io/create-angular-material-8-custom-theme/ - source code for file
+//https://materialtheme.arcsine.dev/ - custom mat-colour codes
+//https://lospec.com/palette-list/ibm-color-blind-safe - IBM colour blind safe palette
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$mat-primary: (
+  main: #785ef0,
+  lighter: #d7cffb,
+  darker: #5b42e9,
+  200: #785ef0, // For slide toggle,
+  contrast : (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  )
+);
+
+$mat-accent: (
+  main: #ffb000,
+  lighter: #ffe7b3,
+  darker: #ff9700,
+  200: #ffb000, // For slide toggle,
+  contrast : (
+    main: $dark-primary-text,
+    lighter: $dark-primary-text,
+    darker: $dark-primary-text,
+  )
+);
+
+$mat-warn: (
+  main: #dc267f,
+  lighter: #f5bed9,
+  darker: #ce1762,
+  200: #dc267f, // For slide toggle,
+  contrast : (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  )
+);
+
+/* ======== Angular material custom themes ======== */ 
+//$my-custom-primary: mat-palette($mat-accent);
+$my-custom-primary: mat-palette($mat-primary, main, lighter, darker);
+$my-custom-accent: mat-palette($mat-accent, main, lighter, darker);
+$my-custom-warn: mat-palette($mat-warn, main, lighter, darker);
+
+$my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-custom-warn);
+
+@include angular-material-theme($my-custom-theme);

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { KeyloggerService } from './keylogger.service' 
+import { ParserService } from './parser.service';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:3000/api/user/';
 
 const headers = { 'Content-Type': 'application/json'};
 
-export class User {
-  'username': string = '';   
-}
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +16,36 @@ export class User {
 export class AuthService {
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private keylogger: KeyloggerService,
+    private parser: ParserService,
+    private router: Router
+  ) {}
 
   register(user: any) {
 
-    console.log('Register') ; 
+
     console.log(user); 
 
-    this.http.post<any>(API_URL + 'register', JSON.stringify(user), {headers})
-      .subscribe(data => {  
-    });
+    this.http.post<any>(API_URL + 'register', JSON.stringify(user), 
+    {headers})
+    .subscribe(data => {  
+
+        
+
+        this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}}) 
+        .then(nav => {
+          this.keylogger.clear();
+          this.parser.clear();
+          console.log("Navigationz = " + nav); // true if navigation is successful
+        }, err => {
+        }); 
+      },
+      err => {
+        if (err['status'] == 'UserAlreadyExists') {
+          console.log(err['message']); 
+        }      
+      });
     
   
     

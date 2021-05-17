@@ -1,6 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { KeyloggerService } from '../../../services/keylogger.service' 
 import { ParserService } from '../../../services/parser.service';
@@ -27,7 +26,6 @@ export class RegisterComponent implements OnInit {
     private keylogger: KeyloggerService,
     private parser: ParserService,
     private auth: AuthService,
-    private router: Router,
     ) {}
 
   ngOnInit(): void {}
@@ -57,8 +55,6 @@ export class RegisterComponent implements OnInit {
       return !control.value ? { 'required': true } : null;
     }])
   });
-
- 
 
   get username() { return this.userForm.get('username');  }
 
@@ -94,7 +90,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
   //keyboard icon
   clearValue(event: any) {
     this.num = event.path[this.mouseID].id; 
@@ -102,6 +97,8 @@ export class RegisterComponent implements OnInit {
     sentence?.reset();
     this.valid[this.num] = true; 
     this.anotherValid[this.num] = true;
+
+    console.log('num in register: ' + this.num); 
     this.keylogger.reset(this.num); 
 
   }
@@ -157,18 +154,8 @@ export class RegisterComponent implements OnInit {
       this.auth.register(user); 
     
       //make this asymc or subscirbe to auth.register and on success, navgiate  
-      
-      this.router.navigate(['/', 'login'], {queryParams: { registered: 'true'}})
-        .then(nav => {
-          //this.keylogger.reset();
-          //this.parser.reset(); 
-          console.log("Navigation = " + nav); // true if navigation is successful
-        }, err => {
-        }); 
     }  
   }
-
-  
 }
 
 

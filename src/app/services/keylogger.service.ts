@@ -56,10 +56,26 @@ export class KeyloggerService {
 
   reset(num: number) {
 
+    console.log('num in keylogger: ' + num); 
+
     this.user.username = ''; 
     this.user.mousemove = 0;
-    this.user.sentence[this.num].keydowns = [];
-    this.user.sentence[this.num].keyups = []; 
-    this.user.sentence[this.num].keypresses = [];
+    this.user.sentence[num].keydowns = [];
+    this.user.sentence[num].keyups = []; 
+    this.user.sentence[num].keypresses = [];
   }
+
+  clear() {
+
+    this.user.username = '';
+    this.user.mousemove = 0;
+
+    for (var i = 0; i < 3; i++) {
+      this.user.sentence[i].keydowns = [];
+      this.user.sentence[i].keyups = []; 
+      this.user.sentence[i].keypresses = []; 
+    }
+  }
+
+  
 }
