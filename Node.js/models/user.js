@@ -10,21 +10,35 @@ const userSchema = new mongoose.Schema({
         min: 9,
         max: 9,
         match: [/User#[0-9]+/]
-    }
-    /*,
-    keystrokes: {
-        type: String,
-        required: true,
-        min: keySize, 
-        max: keySize
     },
-    meanKeydownLatency: {
-        type: [Number],
-        required: true,
-
+    mousemove: {
+        type: Number,
+        required: true
+    },
+    keystrokes: {
+        type:[String],
+        required: true
+    },
+    avgKeydownLatency: {
+        type:[Number],
+        required: true
+    },
+    avgKeyupLatency: {
+        type:[Number],
+        required: true
+    },
+    avgHoldingDuration: {
+        type:[Number],
+        required: true
+    },
+    avgReleaseDuration: {
+        type:[Number],
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
-    */
-    //mean keydownlatency arr
 
     //mean keyuplatency arr
 

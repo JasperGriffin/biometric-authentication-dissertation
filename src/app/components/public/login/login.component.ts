@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -39,26 +39,36 @@ export class LoginComponent implements OnInit {
 
   get sentence() { return this.userForm.get('sentence'); }
 
+  //mouse listener
+  @HostListener('mousemove', ['$event'])
+  handleMousemove(event: MouseEvent) {
+    //this.keylogger.onMouseMove(event); 
+  }
+
   clearValue() {
     this.sentence?.reset(); 
-
     //reset array
+  }
+
+  onSubmitValidate() {
+    if (this.username?.invalid) {
+      return this.username?.markAllAsTouched(); 
+    }
+    else if (this.sentence?.invalid) {
+      return this.sentence?.markAllAsTouched(); 
+    }
+    else {
+      return true;
+    }
   }
   
   onSubmit() {
 
-    
-
-    if (this.username?.invalid) {
-      this.username?.markAllAsTouched(); 
-    }
-    else if (this.sentence?.invalid) {
-      this.sentence?.markAllAsTouched(); 
-    }
-    else {
+    if (this.onSubmitValidate()) {
       const loggedIn: string[] = ['/home'];
       this.router.navigate(loggedIn);
     }
+  
   }
 
   createAcc() {

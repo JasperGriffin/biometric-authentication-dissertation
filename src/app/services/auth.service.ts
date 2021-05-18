@@ -25,7 +25,6 @@ export class AuthService {
 
   register(user: any) {
 
-
     console.log(user); 
 
     this.http.post<any>(API_URL + 'register', JSON.stringify(user), {headers})
