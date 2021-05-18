@@ -35,9 +35,10 @@
             </mat-form-field>
         </p>
         <p>
-            <mat-form-field appearance="legacy" [formGroup]="userForm">
-            <mat-label>The quick fox jumped over the lazy dog</mat-label>
-            <input matInput placeholder="Sentence" formControlName="sentence" required>
+            <mat-form-field appearance="legacy" [formGroup]="userForm" id="0">
+            <mat-label>this is a test</mat-label>
+            <input matInput placeholder="Sentence" formControlName="sentence" 
+            (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
             <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">
                 <mat-icon>keyboard</mat-icon>
             </button>
