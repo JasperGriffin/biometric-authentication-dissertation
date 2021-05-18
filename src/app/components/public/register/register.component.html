@@ -5,6 +5,13 @@
     https://material.angular.io/components/checkbox/overview - CheckBox (Angular Material)
 -->
 
+<div class="error-card-wrapper">
+    <mat-card *ngIf="errorMessage" class="error-card" [style.backgroundColor]="'#ffb000'">
+        <span >{{ errorMessage }}</span>
+    </mat-card>
+</div>
+
+
 <mat-card class="card-container">
 
     <div class="box-container">

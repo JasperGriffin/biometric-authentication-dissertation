@@ -30,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    CheckboxComponent,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,

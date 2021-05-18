@@ -1,7 +1,7 @@
 const router = require('express').Router(); 
 const User = require('../models/user'); 
 
-const { validateUser, checkUsername } = require('../services/register'); 
+const { validateUser } = require('../services/register'); 
 
 router.post('/register', async (req, res) => {
 
@@ -9,18 +9,25 @@ router.post('/register', async (req, res) => {
     validateUser(req);
 
     //check if username already exists in database
-    //checkUsername(req, User);
+    const checkUsername = await User.findOne({username: req.body.username});  
 
-    const testuser = await User.findOne({username: req.body.username});  
-
-    if (testuser) {
-        console.log('same user already exists'); 
-        //throw { success: 'UserAlreadyExists', message: 'UserAlreadyExists' };
-        //return res.status(400).send({ status: "UserAlreadyExists", message: "UserAlreadyExists"})
+    if (checkUsername) {
+        return res.status(400).json({
+            status: 'UserDuplication',
+            error: 'UserAlreadyExists',
+            user: null
+        });
     }
-
+    
 
     //check mousemove
+    if (req.body.mousemove < 100) {
+        return res.status(400).json({
+            status: 'BotDetection',
+            error: 'BotDetected',
+            user: null
+        });
+    }
 
     //calculate average
 
@@ -41,12 +48,13 @@ router.post('/register', async (req, res) => {
         const registeredUser = await user.save(); 
         res.send(req.body); 
     } catch(err) {
-        res.status(400).send(err); 
-        res.end(); 
+        return res.status(500).json({
+            status: 'DatabaseDisconnected',
+            error: 'DatabaseCouldNotConnect',
+            user: null
+        }); 
     }
 }); 
-
-
 
 
 module.exports = router;

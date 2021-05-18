@@ -1,9 +1,13 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckboxComponent } from './checkbox/checkbox.component';
-import { KeyloggerService } from '../../../services/keylogger.service' 
+
+import { KeyloggerService } from '../../../services/keylogger.service';
 import { ParserService } from '../../../services/parser.service';
 import { AuthService } from '../../../services/auth.service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   providers: [CheckboxComponent],
@@ -21,14 +25,25 @@ export class RegisterComponent implements OnInit {
   keyboardID: number = 4; 
   mouseID: number = 6; 
   num: number = 0; 
+  errorMessage: string = '';
 
   constructor(
     private keylogger: KeyloggerService,
     private parser: ParserService,
     private auth: AuthService,
+    private error: ErrorHandlerService,
+    private route: ActivatedRoute
     ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+
+    //ErrorHandler(); 
+    this.route.queryParams
+      .subscribe(params => {
+        this.clearAllValues(); 
+        this.errorMessage = this.error.getErrorMessage(params); 
+      })
+  }
 
   userForm = new FormGroup({
     username : new FormControl('', Validators.compose([
@@ -92,15 +107,24 @@ export class RegisterComponent implements OnInit {
 
   //keyboard icon
   clearValue(event: any) {
+    //reset specific sentence  
     this.num = event.path[this.mouseID].id; 
-    const sentence = this.checkSentence(this.num);
-    sentence?.reset();
+    this.checkSentence(this.num)?.reset();
+    //reset boolean values
     this.valid[this.num] = true; 
     this.anotherValid[this.num] = true;
-
-    console.log('num in register: ' + this.num); 
+    //clear keylogger arrays
     this.keylogger.reset(this.num); 
+  }
 
+  clearAllValues() {
+    this.username?.reset(); 
+    this.firstSentence?.reset();
+    this.secondSentence?.reset(); 
+    this.thirdSentence?.reset();
+    this.checkbox?.reset();
+    this.keylogger.clear();
+    this.parser.clear();
   }
 
   checkComplete(event: any) {
@@ -150,10 +174,8 @@ export class RegisterComponent implements OnInit {
     if (this.onSubmitValidate()) {
 
       const userTemplate = this.keylogger.getUser();
-      const user = this.parser.getUser(userTemplate); 
+      const user = this.parser.getUser(userTemplate);       
       this.auth.register(user); 
-    
-      //make this asymc or subscirbe to auth.register and on success, navgiate  
     }  
   }
 }

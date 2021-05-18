@@ -25,3 +25,15 @@
     transform: scale(1.5);
     margin-bottom: 10px;
   }
+
+  .error-card {
+    width: 40vw;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  .error-card-wrapper {
+    display: flex; 
+    justify-content: center;
+    margin: auto;
+  }

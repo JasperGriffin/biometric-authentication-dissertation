@@ -16,12 +16,14 @@ const validateUser = (req,res) => {
             return true; 
         }
         else {
-            console.log('sentences are wrong'); 
-            res.status(400).send({ status: "SentencesAreWrong", message: "SentencesAreWrong"})
+            return res.status(400).json({
+                status: 'SentenceError',
+                error: 'SentencesMatchError',
+                user: null
+            });
 
         }
     }
 }
-
 
 module.exports.validateUser = validateUser; 
