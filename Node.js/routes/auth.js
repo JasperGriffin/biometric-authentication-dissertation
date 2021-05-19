@@ -70,10 +70,20 @@ router.post('/login', async (req, res) => {
 
     const checkUsername = await User.findOne({username: req.body.username}, function(err, user) {
         if (user) {
-            cosineSimilarity(req, user); 
+            const result = cosineSimilarity(req, user); 
+            console.log(result.username);
+            console.log(result.mousemove);
+            console.log(result.csKeydownLatency);
+            console.log(result.csKeyupLatency);
+            console.log(result.csHoldingDuration);
+            console.log(result.csReleaseDuration);    
         }
         else {
-            console.log('user not found'); 
+            return res.status(400).json({
+                status: 'UserDoesNotExist',
+                error: 'UnknownUser',
+                user: null
+            }); 
         }
     });  
     
