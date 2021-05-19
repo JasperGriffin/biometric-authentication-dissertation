@@ -43,9 +43,19 @@ export class AuthService {
         //errorHandler
         this.error.setErrorMessage(err);       
       });
-    
-  
-    
+  }
 
+  login(user: any) {
+    
+    this.http.post<any>(API_URL + 'login', JSON.stringify(user), {headers})
+    .subscribe(data => {
+      console.log('this worked?');
+      console.log(data);
+
+      this.keylogger.clearLogin();
+      this.parser.clearLogin();
+    })
+
+    
   }
 }

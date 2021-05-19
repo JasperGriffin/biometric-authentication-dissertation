@@ -79,6 +79,11 @@ export class LoginComponent implements OnInit {
 
   clearValue() {
     this.sentence?.reset(); 
+    this.keylogger.clearLogin();
+    this.parser.clearLogin(); 
+
+    this.valid = true; 
+    this.anotherValid = true;
     //reset array
   }
 
@@ -88,6 +93,9 @@ export class LoginComponent implements OnInit {
     }
     else if (this.sentence?.invalid) {
       return this.sentence?.markAllAsTouched(); 
+    }
+    else if (!this.valid) {
+      return this.anotherValid = false;
     }
     else {
       return true;
@@ -101,8 +109,13 @@ export class LoginComponent implements OnInit {
 
     if (this.onSubmitValidate()) {
       const userTemplate = this.keylogger.getUser();
-      console.log(userTemplate); 
+      const user = this.parser.getUser(userTemplate); 
 
+      //deleting empty arrays
+      delete user.key[1];
+      delete user.key[2];
+      console.log(user);
+      this.auth.login(user); 
     }
   
   }

@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-var keySize = 14; 
-
-const userSchema = new mongoose.Schema({
+const loginSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -14,23 +12,19 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    keystrokes: {
-        type:[String],
-        required: true
-    },
-    avgKeydownLatency: {
+    keydownLatency: {
         type:[Number],
         required: true
     },
-    avgKeyupLatency: {
+    keyupLatency: {
         type:[Number],
         required: true
     },
-    avgHoldingDuration: {
+    holdingDuration: {
         type:[Number],
         required: true
     },
-    avgReleaseDuration: {
+    releaseDuration: {
         type:[Number],
         required: true
     },
@@ -40,4 +34,4 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Login', loginSchema);

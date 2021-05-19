@@ -46,8 +46,9 @@
 
             <mat-error *ngIf="sentence?.errors?.required">This field is required</mat-error>
             <mat-error *ngIf="sentence?.errors?.pattern">Sentence does not match above</mat-error>
-          
             </mat-form-field>
+            <mat-error *ngIf="this.anotherValid === false" class="typo-error">Typo detected, click the keyboard icon to restart</mat-error>
+
         </p>        
 
         <section>

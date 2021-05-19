@@ -77,5 +77,13 @@ export class KeyloggerService {
     }
   }
 
+  clearLogin() {
+    this.user.username = '';
+    this.user.mousemove = 0;
+    this.user.sentence[0].keydowns = [];
+    this.user.sentence[0].keyups = []; 
+    this.user.sentence[0].keypresses = []; 
+  }
+
   
 }

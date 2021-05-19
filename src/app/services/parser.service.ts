@@ -84,5 +84,16 @@ export class ParserService {
       this.keystrokes.key[i].releaseDuration = [];
     }
   }
+
+  clearLogin() {
+    this.keystrokes.username = '';
+    this.keystrokes.keystrokes = [];
+    this.keystrokes.mousemove = 0; 
+
+    this.keystrokes.key[0].keydownLatency = [];
+    this.keystrokes.key[0].keyupLatency = [];
+    this.keystrokes.key[0].holdingDuration = [];
+    this.keystrokes.key[0].releaseDuration = [];
+  }
 }
 

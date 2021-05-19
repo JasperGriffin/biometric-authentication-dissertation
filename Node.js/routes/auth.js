@@ -1,7 +1,9 @@
 const router = require('express').Router(); 
 const User = require('../models/user'); 
+const Login = require('../models/login'); 
 
 const { validateUser, calculateAvg } = require('../services/register'); 
+const { cosineSimilarity } = require('../services/login'); 
 
 router.post('/register', async (req, res) => {
 
@@ -58,7 +60,53 @@ router.post('/register', async (req, res) => {
             user: null
         }); 
     }
-}); 
+});
+
+router.post('/login', async (req, res) => {
+
+    console.log('username from auth.js'); 
+    console.log('requests: ' + req.body.username);
+    console.log(req.body.key[0].holdingDuration); 
+
+    const checkUsername = await User.findOne({username: req.body.username}, function(err, user) {
+        if (user) {
+            cosineSimilarity(req, user); 
+        }
+        else {
+            console.log('user not found'); 
+        }
+    });  
+    
+    
+    //check mousemove
+    if (req.body.mousemove < 0) {
+        return res.status(400).json({
+            status: 'BotDetection',
+            error: 'BotDetected',
+            user: null
+        });
+    }
+
+    const login = new Login({
+        username: req.body.username,
+        mousemove: req.body.mousemove,
+        keydownLatency: req.body.key[0].keydownLatency,
+        keyupLatency: req.body.key[0].keyupLatency,
+        holdingDuration: req.body.key[0].holdingDuration,
+        releaseDuration: req.body.key[0].releaseDuration
+    })
+    try {
+        const loggedUser = await login.save(); 
+        res.send(loggedUser); 
+    } catch(err) {
+        return res.status(500).json({
+            status: 'DatabaseDisconnected',
+            error: 'DatabaseCouldNotConnect',
+            user: null
+        }); 
+    }
+
+})
 
 
 module.exports = router;

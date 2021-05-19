@@ -71,3 +71,10 @@
     transform: scale(1.5);
     margin-bottom: 10px;
   }
+
+  .typo-error { 
+    display: flex;
+    align-content: center;
+    align-items: center;
+    font-size: 12.5px;
+  }
