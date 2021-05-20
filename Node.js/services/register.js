@@ -4,7 +4,7 @@ const validateUser = (req) => {
     //potentially check if sentnece is 'this is a test'
 
     textLength = parseInt(Object.keys(req.body.keystrokes).length);
-    
+    //console.log('length: ' + Object.keys(req.body.key).length);
     for (var i = 0; i < Object.keys(req.body.key).length; i++) {
 
         kdl = Object.keys(req.body.key[i].keydownLatency).length;

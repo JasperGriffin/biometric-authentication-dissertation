@@ -3,7 +3,7 @@ const User = require('../models/user');
 const Login = require('../models/login'); 
 
 const { validateUser, calculateAvg } = require('../services/register'); 
-const { cosineSimilarity } = require('../services/login'); 
+const { validateLogin, cosineSimilarity } = require('../services/login'); 
 
 router.post('/register', async (req, res) => {
 
@@ -66,28 +66,16 @@ router.post('/login', async (req, res) => {
 
     console.log('username from auth.js'); 
     console.log('requests: ' + req.body.username);
-    console.log(req.body.key[0].holdingDuration); 
 
-    const checkUsername = await User.findOne({username: req.body.username}, function(err, user) {
-        if (user) {
-            const result = cosineSimilarity(req, user); 
-            console.log(result.username);
-            console.log(result.mousemove);
-            console.log(result.csKeydownLatency);
-            console.log(result.csKeyupLatency);
-            console.log(result.csHoldingDuration);
-            console.log(result.csReleaseDuration);    
-        }
-        else {
-            return res.status(400).json({
-                status: 'UserDoesNotExist',
-                error: 'UnknownUser',
-                user: null
-            }); 
-        }
-    });  
-    
-    
+    const err = validateLogin(req);
+    if (err) {
+        return res.status(400).json({
+            status: 'SentenceError',
+            error: 'SentencesMatchError',
+            user: null
+        });
+    }
+
     //check mousemove
     if (req.body.mousemove < 0) {
         return res.status(400).json({
@@ -97,26 +85,49 @@ router.post('/login', async (req, res) => {
         });
     }
 
-    const login = new Login({
-        username: req.body.username,
-        mousemove: req.body.mousemove,
-        keydownLatency: req.body.key[0].keydownLatency,
-        keyupLatency: req.body.key[0].keyupLatency,
-        holdingDuration: req.body.key[0].holdingDuration,
-        releaseDuration: req.body.key[0].releaseDuration
-    })
-    try {
-        const loggedUser = await login.save(); 
-        res.send(loggedUser); 
-    } catch(err) {
-        return res.status(500).json({
-            status: 'DatabaseDisconnected',
-            error: 'DatabaseCouldNotConnect',
+    const checkUsername = await User.findOne({username: req.body.username});
+
+    if (checkUsername) {
+        const result = cosineSimilarity(req, checkUsername); 
+        console.log(result.csKeydownLatency);
+        console.log(result.csKeyupLatency);
+        console.log(result.csHoldingDuration);
+        console.log(result.csReleaseDuration); 
+
+        console.log('type: ' + typeof(result.csKeydownLatency)); 
+
+        const login = new Login({
+            username: req.body.username,
+            mousemove: req.body.mousemove,
+            keydownLatency: req.body.key[0].keydownLatency,
+            keyupLatency: req.body.key[0].keyupLatency,
+            holdingDuration: req.body.key[0].holdingDuration,
+            releaseDuration: req.body.key[0].releaseDuration,
+            csKeydownLatency: result.csKeydownLatency,
+            csKeyupLatency: result.csKeyupLatency,
+            csHoldingDuration: result.csHoldingDuration,
+            csReleaseDuration: result.csReleaseDuration
+        })
+        try {
+            const loggedUser = await login.save(); 
+            res.send(loggedUser); 
+        } catch(err) {
+            return res.status(500).json({
+                status: 'DatabaseDisconnected',
+                error: 'DatabaseCouldNotConnect',
+                user: null
+            }); 
+        }
+
+    }
+    else {
+        console.log("user does not exist"); 
+        return res.status(400).json({
+            status: 'UserDoesNotExist',
+            error: 'UnknownUser',
             user: null
         }); 
     }
-
 })
-
 
 module.exports = router;

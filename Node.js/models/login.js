@@ -28,6 +28,22 @@ const loginSchema = new mongoose.Schema({
         type:[Number],
         required: true
     },
+    csKeydownLatency: {
+        type: Number,
+        required: true
+    },
+    csKeyupLatency: {
+        type: Number,
+        required: true
+    },
+    csHoldingDuration: {
+        type: Number,
+        required: true
+    },
+    csReleaseDuration: {
+        type: Number,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now

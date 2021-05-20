@@ -54,9 +54,17 @@ export class AuthService {
         .then(nav => {
           this.keylogger.clearLogin();
           this.parser.clearLogin();
+          console.log('parser user'); 
+          
+          var u = this.parser.getUser;
+          console.log(JSON.stringify(u)); 
         }); 
-    })
-
+    },
+    err => {
+      this.error.setErrorMessage(err);       
+    });
+    
+    
     
   }
 }

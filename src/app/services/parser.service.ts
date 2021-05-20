@@ -77,7 +77,7 @@ export class ParserService {
     this.keystrokes.keystrokes = [];
     this.keystrokes.mousemove = 0; 
 
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < this.keystrokes.key.length; i++) {
       this.keystrokes.key[i].keydownLatency = [];
       this.keystrokes.key[i].keyupLatency = [];
       this.keystrokes.key[i].holdingDuration = [];

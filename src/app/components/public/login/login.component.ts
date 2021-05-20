@@ -33,8 +33,9 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams
       .subscribe(params => {
-        if (params.registered !== undefined && params.registered === 'true') {
-          this.infoMessage = "Registration complete, you may now login.";
+        this.infoMessage = this.error.getErrorMessage(params); 
+        if (this.infoMessage.length != 0) {
+          this.clear(); 
         }
       })
   }
@@ -80,11 +81,14 @@ export class LoginComponent implements OnInit {
   clearValue() {
     this.sentence?.reset(); 
     this.keylogger.clearLogin();
-    this.parser.clearLogin(); 
-
     this.valid = true; 
     this.anotherValid = true;
-    //reset array
+  }
+
+  clear() {
+    this.sentence?.reset(); 
+    this.keylogger.clearLogin(); 
+    this.parser.clearLogin(); 
   }
 
   onSubmitValidate() {

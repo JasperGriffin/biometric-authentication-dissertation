@@ -40,8 +40,10 @@ export class RegisterComponent implements OnInit {
     //ErrorHandler(); 
     this.route.queryParams
       .subscribe(params => {
-        this.clearAllValues(); 
         this.errorMessage = this.error.getErrorMessage(params); 
+        if (this.errorMessage.length != 0) {
+          this.clearAllValues(); 
+        }
       })
   }
 
