@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  userInput: string = 'this is a test'; //The quick brown fox jumped over the lazy dog
+  userInput: string = 'consider problem without'; //The quick brown fox jumped over the lazy dog
   userInputArray = new Array();
   complete: boolean = false;
   valid: boolean[] = [true,true,true]; 

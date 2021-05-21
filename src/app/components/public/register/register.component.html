@@ -6,7 +6,7 @@
 -->
 
 <div class="error-card-wrapper">
-    <mat-card *ngIf="errorMessage" class="error-card" [style.backgroundColor]="'#ffb000'">
+    <mat-card *ngIf="errorMessage" class="error-card" [style.backgroundColor]="'#dc267f'">
         <span >{{ errorMessage }}</span>
     </mat-card>
 </div>
@@ -38,7 +38,7 @@
 
         <div>
             <mat-form-field appearance="legacy" [formGroup]="userForm" id="0">
-                <mat-label>this is a test</mat-label>
+                <mat-label>consider problem without</mat-label>
                 <input matInput placeholder="Sentence" formControlName="firstSentence" type="text" 
                 (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
@@ -58,7 +58,7 @@
         
         <div>
             <mat-form-field appearance="legacy" [formGroup]="userForm" id="1">
-            <mat-label>this is a test</mat-label>
+            <mat-label>consider problem without</mat-label>
             <input matInput placeholder="Sentence" formControlName="secondSentence" type="text" 
             (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 
@@ -75,7 +75,7 @@
         
         <div>
             <mat-form-field appearance="legacy" [formGroup]="userForm" id="2">
-            <mat-label>this is a test</mat-label>
+            <mat-label>consider problem without</mat-label>
             <input matInput placeholder="Sentence" formControlName="thirdSentence" type="text" 
             (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
 

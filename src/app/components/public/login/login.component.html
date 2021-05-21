@@ -6,7 +6,7 @@
 
 
 <div class="register-card-wrapper">
-    <mat-card *ngIf="infoMessage" class="register-card" [style.backgroundColor]="'#ffb000'">
+    <mat-card *ngIf="infoMessage" class="register-card" [style.backgroundColor]="'#dc267f'">
         <span >{{ infoMessage }}</span>
     </mat-card>
 </div>
@@ -36,7 +36,7 @@
         </p>
         <p>
             <mat-form-field appearance="legacy" [formGroup]="userForm" id="0">
-            <mat-label>this is a test</mat-label>
+            <mat-label>consider problem without</mat-label>
             <input matInput placeholder="Sentence" formControlName="sentence" 
             (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" (keypress)="onKeyPress($event)" (input)="validateInput($event)" required>
             <button mat-icon-button matSuffix class="keyboard-icon" (click)="clearValue()">

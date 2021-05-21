@@ -14,7 +14,7 @@ import { ErrorHandlerService } from '../../../services/error-handler.service';
 })
 export class LoginComponent implements OnInit {
   
-  userInput: string = 'this is a test';
+  userInput: string = 'consider problem without';
   infoMessage: string = ''; 
   errorMessage: string = ''; 
   valid: boolean = true; 
@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
   }
 
   clear() {
+    this.username?.reset(); 
     this.sentence?.reset(); 
     this.keylogger.clearLogin(); 
     this.parser.clearLogin(); 
