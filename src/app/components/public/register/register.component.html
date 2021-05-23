@@ -20,7 +20,7 @@
             <img src="/assets/img/logo.png" alt="company-logo" class="logo">
         </div>
         <div class="page-title">
-            <h3>Sign up</h3>
+            <h3>Register</h3>
         </div>
 
         <div>
@@ -92,7 +92,7 @@
 
 
         <app-checkbox (update)="checkComplete($event)"></app-checkbox>
-        <mat-error *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and services</mat-error>
+        <mat-error *ngIf="checkbox?.invalid && checkbox?.dirty" class="checkbox-error">You must agree the terms and conditions before pariticipating</mat-error>
 
           <section>
             <div class="button-row">
@@ -100,5 +100,8 @@
                 <button mat-raised-button color="primary" (click)="onSubmit()" class="register-btn">Register</button>
             </div>
         </section>
+        <div class="sign-up-row">
+            <p>Already have an account? <a href="login" class="sign-up-btn">Sign in</a></p>
+        </div>
     </div>
 </mat-card>

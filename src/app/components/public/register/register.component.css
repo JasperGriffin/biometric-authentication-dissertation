@@ -2,7 +2,7 @@
 
 
   .card-container {
-    margin-top: 25px;
+    margin-top: 15px;
   }
 
   .typo-error { 
@@ -18,7 +18,9 @@
   }
 
   .register-btn {
-    width: 50%;
+    width: 100%;
+    padding: 5px 0 5px 0;
+    font-size: 2vh;
   }
 
   .keyboard-icon {
@@ -29,7 +31,7 @@
   .error-card {
     width: 40vw;
     margin-top: 20px;
-    position: relative;
+    position: absolute;
     color: #ffffff
   }
 

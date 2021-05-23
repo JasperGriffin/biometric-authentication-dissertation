@@ -9,12 +9,25 @@
     width: 750px;
     margin: 8px 8px 8px 0;
     padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  .sign-up-row {
+    width:100%;
+    display: flex;
+    justify-content: center;
   }
 
   .login-btn {
     position:relative;
-    float: right;
-    width: 80px;
+    width: 100%;
+    padding: 5px 0 5px 0;
+    font-size: 2vh;
+  }
+  
+  .sign-up-btn {
+    text-decoration: none;
+    color: #785ff0;
   }
 
   .acc-btn {
@@ -52,7 +65,7 @@
     margin: auto;
     width: 100%;
     text-align: center;
-    color: #673AB7;
+    color: #785ef0;
   }
 
   .register-card {
@@ -60,6 +73,12 @@
     margin-top: 20px;
     position: absolute;
     color: #ffff;
+  }
+
+  .info-card {
+    width: 40vw;
+    margin-top: 20px;
+    position: absolute;
   }
 
   .register-card-wrapper {

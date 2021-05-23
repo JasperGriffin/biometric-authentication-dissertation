@@ -33,8 +33,12 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams
       .subscribe(params => {
-        this.infoMessage = this.error.getErrorMessage(params); 
-        if (this.infoMessage.length != 0) {
+        this.errorMessage = this.error.getErrorMessage(params); 
+        if (this.errorMessage.length != 0) {
+          this.clear(); 
+        }
+        else if (params.registered !== undefined && params.registered === 'true') {
+          this.infoMessage = "Registration complete, you may now login."; 
           this.clear(); 
         }
       })

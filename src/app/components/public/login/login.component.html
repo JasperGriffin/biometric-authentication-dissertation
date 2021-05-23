@@ -6,12 +6,13 @@
 
 
 <div class="register-card-wrapper">
-    <mat-card *ngIf="infoMessage" class="register-card" [style.backgroundColor]="'#dc267f'">
+    <mat-card *ngIf="infoMessage" class="info-card" [style.backgroundColor]="'#ffb000'">
         <span >{{ infoMessage }}</span>
     </mat-card>
+    <mat-card *ngIf="errorMessage" class="register-card" [style.backgroundColor]="'#dc267f'">
+        <span >{{ errorMessage }}</span>
+    </mat-card>
 </div>
-
-
 
 <mat-card class="card-container">
 
@@ -21,7 +22,7 @@
             <img src="/assets/img/logo.png" alt="company-logo" class="logo">
         </div>
         <div class="page-title">
-            <h3>Sign in</h3>
+            <h3>Login</h3>
         </div>
 
         <p>
@@ -54,10 +55,12 @@
         <section>
             <div class="button-row">
                 <!--Disabled if formgroup is invalid-->
-                <button mat-button color="primary" (click)="createAcc()" class="acc-btn">Create Account</button>  
                 <button mat-raised-button color="primary" (click)="onSubmit()" class="login-btn">Login</button>
             </div>
         </section>
+        <div class="sign-up-row">
+            <p>Need an account? <a href="register" class="sign-up-btn">Sign up</a></p>
+        </div>
     </div>
 
 </mat-card>

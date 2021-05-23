@@ -45,9 +45,6 @@ export class ErrorHandlerService {
     else if (params.error !== undefined && params.error === 'UnknownUser')  {
       return "User does not exist.";
     }
-    else if (params.registered !== undefined && params.registered === 'true') {
-      return "Registration complete, you may now login."; 
-    }
     else {
       return '';
     }
