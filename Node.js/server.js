@@ -1,3 +1,5 @@
+//https://www.youtube.com/watch?v=2jqok-WgelI - server configuration
+ 
 const express = require('express');
 const app = express();
 const port = 3000; 
