@@ -31,7 +31,7 @@
   .error-card {
     width: 40vw;
     margin-top: 20px;
-    position: absolute;
+    position: relative;
     color: #ffffff
   }
 
